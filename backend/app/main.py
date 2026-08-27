@@ -37,7 +37,7 @@ app.include_router(api_router, prefix="/api/v1")
 
 @app.on_event("startup")
 async def startup():
-    init_store(ttl_minutes=settings.session_ttl_minutes)
+    init_store(ttl_minutes=settings.session_ttl_minutes, tmp_dir=settings.tmp_dir_abs)
     os.makedirs(settings.tmp_dir_abs, exist_ok=True)
     logger.info(f"Startup: tmp_dir={settings.tmp_dir_abs} groq_configured={bool(settings.groq_api_key and settings.groq_api_key != 'gsk_...')} cors={settings.cors_origins_list}")
 
