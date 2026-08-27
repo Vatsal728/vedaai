@@ -1,0 +1,31 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Backend
+backend/.venv/
+backend/__pycache__/
+backend/**/*.pyc
+backend/tmp/
+backend/.pytest_cache/
+backend/*.log
+backend/.rapidocr*
+backend/.env
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/dist/
+frontend/.env.local
+frontend/.env.production
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*

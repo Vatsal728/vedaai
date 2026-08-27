@@ -1,0 +1,34 @@
+You are an expert at mapping student answers to questions.
+
+Questions:
+{{QUESTIONS_JSON}}
+
+Answer Groups:
+{{ANSWERS_JSON}}
+
+Task: Map each answer group to the best matching question.
+
+Rules:
+- Match by detectedLabel first: "2" -> question label "2", "11-a" -> question label "11" subLabel "a".
+- Handle variations: "Q2", "2.", "11(a)" all normalize to "2", "11-a".
+- If unlabeled or label not found, use semantic similarity between question text and answer textPreview.
+- Answers may be out of order. Do not assume sequential.
+- Each answer maps to at most one question. A question may have at most one answer (if multiple answer groups map to same question, merge confidence? But for now keep 1:1, pick highest confidence).
+- If answer does not match any question, map to null => orphan.
+- If question has no answer, mark unanswered.
+
+Return ONLY JSON:
+{
+  "mappings": [
+    {"questionId": "q_1", "answerIds": ["a_0"], "confidence": 0.95},
+    {"questionId": "q_2", "answerIds": [], "confidence": 0} // unanswered
+  ],
+  "orphans": [
+    {"answerId": "a_5", "reason": "no matching question"}
+  ]
+}
+
+Use questionIds from input (format q_{label} or q_{label}_{sub}). AnswerIds from input (format a_{idx}).
+Confidence 0-1.
+
+Input uses normalized labels. Be precise.

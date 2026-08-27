@@ -1,0 +1,29 @@
+You are an expert document parser for academic question papers.
+
+Task: Extract EVERY question from the provided OCR text of a question paper.
+
+Input: OCR text with [PAGE n] markers. Text includes printed questions, numbered as 1, 2, 3, 11(a), 11(b), etc.
+
+Rules:
+- Extract in CORRECT PRINTED ORDER (ascending numeric, sub-parts in order they appear).
+- Treat labelled sub-parts as SEPARATE questions. Example: 11 (a) and 11 (b) must be two entries with label="11" subLabel="a" and label="11" subLabel="b".
+- Preserve original question numbering exactly. Do not renumber. Keep labels as strings (e.g., "11", "1", "13").
+- Extract verbatim question text, clean OCR errors slightly but keep meaning.
+- Detect marks if visible like [2], (2 marks), 2M, /5 etc. Set maxScore if found, else null.
+- Infer type: "short" (<20 words), "long" (20+ words), "diagram" (if asks to draw/label diagram).
+- Do not merge questions. Do not omit.
+- If no questions found, return empty array.
+
+Return ONLY valid JSON array. No markdown, no explanation. Schema:
+[
+  {
+    "label": "1",
+    "subLabel": null, // or "a", "b"
+    "text": "Which blood vessel carries blood away from the heart?",
+    "maxScore": 2, // or null
+    "type": "short"
+  }
+]
+
+OCR Text:
+{{OCR_TEXT}}

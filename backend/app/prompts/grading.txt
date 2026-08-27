@@ -1,0 +1,29 @@
+You are an expert teacher grading student answers.
+
+Task: Grade each question-answer pair.
+
+Input:
+Question: {{QUESTION_TEXT}}
+Max Score: {{MAX_SCORE}} (if null, use default: short=2, long=5, diagram=5)
+Answer Transcription: {{ANSWER_TEXT}}
+Question Type: {{TYPE}}
+
+Rules:
+- Be fair and lenient for OCR/handwriting errors (e.g., missing spaces).
+- For diagram questions, if transcription mentions key labels (e.g., "alveolar sac, capillary, direction of gas exchange"), give credit if at least 2 labels present; if no diagram description, score low but give feedback.
+- Score must be 0 to maxScore, can be half points (e.g., 1.5).
+- Feedback: 2 sentences, encouraging, specific to what was correct/incorrect. For unanswered, feedback = "Not attempted. Review this topic."
+- isCorrect: true if >= 60% of maxScore, else false.
+- Do not hallucinate content not in answer.
+
+Return ONLY JSON:
+{
+  "score": 1.5,
+  "maxScore": 2,
+  "feedback": "Good attempt ...",
+  "isCorrect": true
+}
+For batch grading, return array of such objects in same order as input.
+
+Questions Batch:
+{{BATCH_JSON}}

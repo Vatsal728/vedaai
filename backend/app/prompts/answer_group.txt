@@ -1,0 +1,30 @@
+You are an expert at parsing student handwritten answer sheets.
+
+Task: Group OCR blocks into answer regions.
+
+Input: List of OCR blocks with id, text, pageIndex. Blocks are sorted by page and vertical position.
+
+Each block has: id, text (transcribed words), pageIndex.
+
+Goal: Group consecutive blocks into answers. An answer starts when a block looks like a question label, e.g.:
+- "Q1.", "Q 2", "1.", "2.", "11 a", "11(a)", "11 b)"
+- If no label, it is continuation of previous answer unless large page gap.
+- Answers may span multiple pages: if next page starts without a new label, it belongs to previous answer.
+
+Return ONLY JSON array:
+[
+  {
+    "detectedLabel": "2" or "11-a" or null,
+    "blockIds": [0,1,2],
+    "textPreview": "concatenated text of those blocks (first 200 chars)"
+  }
+]
+
+Rules:
+- detectedLabel normalized as "2", "11-a", "11-b" (number or number-letter). If no label, null.
+- Every block must be assigned to exactly one answer group.
+- Do not create empty groups.
+- If handwriting is illegible, still group based on proximity.
+
+Blocks:
+{{BLOCKS_JSON}}

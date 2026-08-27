@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background: #F5F5F5;
+  color: #1F1F1F;
+  -webkit-font-smoothing: antialiased;
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* lined paper subtle */
+.lined-bg {
+  background-color: #FFFEF9;
+  background-image: linear-gradient(#E8ECF5 1px, transparent 1px);
+  background-size: 100% 28px;
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+}
